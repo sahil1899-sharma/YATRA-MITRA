@@ -1,0 +1,468 @@
+:root {
+  --color-saffron: #e8890c;
+  --color-maroon: #7a1f2b;
+  --color-cream: #fff8ec;
+  --color-ink: #1f2430;
+  --color-verified: #1e8e5a;
+  --color-amber: #d98e04;
+  --color-alert: #c0392b;
+  --color-line: #e7dccb;
+  --radius-card: 14px;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Night-cinema base: near-black maroon-tinted, lit by ember glows. */
+body {
+  @apply bg-night text-cream font-sans antialiased;
+  background-image:
+    radial-gradient(1100px 480px at 85% -6%, rgba(232, 137, 12, 0.14), transparent 60%),
+    radial-gradient(900px 520px at -12% 24%, rgba(122, 31, 43, 0.22), transparent 60%),
+    radial-gradient(700px 500px at 50% 115%, rgba(232, 137, 12, 0.07), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Faint jaali-inspired lattice for dark surfaces. Inline SVG, fully offline. */
+.bg-jaali-dark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M32 8l6.5 14.5L53 29l-14.5 6.5L32 50l-6.5-14.5L11 29l14.5-6.5z' fill='none' stroke='%23E8890C' stroke-opacity='0.07'/%3E%3Ccircle cx='32' cy='29' r='2.4' fill='%23E8890C' fill-opacity='0.08'/%3E%3C/svg%3E");
+}
+
+/* Frosted glass surface used across the night UI. */
+.glass {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Dark thin scrollbars for overlay panels (native scrollbars render light). */
+.scroll-dark {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+}
+.scroll-dark::-webkit-scrollbar {
+  width: 8px;
+}
+.scroll-dark::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scroll-dark::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+}
+
+/* Warm glowing headline text. */
+.text-ember {
+  text-shadow:
+    0 2px 18px rgba(0, 0, 0, 0.65),
+    0 0 42px rgba(232, 137, 12, 0.35);
+}
+
+/* Marquee: the track holds two copies; it slides exactly one copy width. */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* 3D tilt stage. The card itself gets its transform from JS. */
+.tilt-stage {
+  perspective: 1000px;
+}
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.45s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+.tilt-stage.tilting .tilt-card {
+  transition: transform 0.06s linear;
+}
+/* Specular glare that follows the pointer via --gx/--gy/--go. */
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--go, 0);
+  background: radial-gradient(
+    420px circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 236, 200, 0.22),
+    transparent 65%
+  );
+  transition: opacity 0.4s ease;
+}
+
+::selection {
+  background: rgba(232, 137, 12, 0.45);
+  color: #fff8ec;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered entrance: set style={{ '--d': '0.15s' } as CSSProperties} */
+.rise {
+  animation: rise 0.8s cubic-bezier(0.22, 0.8, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+/* Scroll-reveal: starts hidden, transitions in when .reveal-in is added.
+   Stagger with style={{ '--d': '0.15s' }}. */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 0.8, 0.3, 1),
+    transform 0.85s cubic-bezier(0.22, 0.8, 0.3, 1);
+  transition-delay: var(--d, 0s);
+  will-change: opacity, transform;
+}
+.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hover lift for cards: gentle rise + ember glow. Opt-in via className. */
+.card-lift {
+  transition:
+    transform 0.45s cubic-bezier(0.22, 0.8, 0.3, 1),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+}
+.card-lift:hover {
+  transform: translateY(-5px);
+  border-color: rgba(232, 137, 12, 0.38);
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.5),
+    0 0 34px rgba(232, 137, 12, 0.16);
+}
+
+/* Gradient ember border for hero cards. */
+.grad-ring {
+  position: relative;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(160deg, rgba(30, 14, 18, 0.92), rgba(22, 10, 13, 0.94)) padding-box,
+    linear-gradient(140deg, rgba(232, 137, 12, 0.55), rgba(232, 137, 12, 0.06) 40%, rgba(122, 31, 43, 0.5)) border-box;
+}
+
+/* Shine sweep for primary CTAs. Add .btn-shine to a positioned button. */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 248, 236, 0.45) 50%, transparent 65%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+.btn-shine:hover::after {
+  animation: shine-sweep 0.9s ease;
+}
+@keyframes shine-sweep {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+/* Live pulse dot for "happening now" indicators. */
+.pulse-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #34d399;
+  flex: none;
+}
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 2px solid rgba(52, 211, 153, 0.55);
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+@keyframes pulse-ring {
+  from {
+    transform: scale(0.55);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+/* Selected option glow (booking slots, modes, kiosk choices). */
+.opt-selected {
+  border-color: rgba(232, 137, 12, 0.75) !important;
+  background: linear-gradient(160deg, rgba(232, 137, 12, 0.16), rgba(232, 137, 12, 0.05)) !important;
+  box-shadow:
+    0 0 0 1px rgba(232, 137, 12, 0.35),
+    0 8px 28px rgba(232, 137, 12, 0.18);
+}
+
+/* Success pop for confirmations (receipt, booking). */
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.pop-in {
+  animation: pop-in 0.7s cubic-bezier(0.22, 0.8, 0.3, 1) both;
+}
+
+/* Animated progress shimmer for ride/delivery bars. */
+.bar-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.bar-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgba(255, 248, 236, 0.35) 50%, transparent 80%);
+  animation: bar-slide 2.2s ease-in-out infinite;
+}
+@keyframes bar-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .reveal,
+  .animate-float,
+  .animate-float-slow,
+  .animate-drift,
+  .animate-marquee,
+  .marquee-track,
+  .animate-flicker,
+  .animate-cabin-a,
+  .animate-cabin-b,
+  .animate-shimmer,
+  .animate-pulse-soft,
+  .btn-shine::after,
+  .bar-shimmer::after,
+  .pulse-dot::after,
+  .ym-rick {
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .tilt-card {
+    transition: none !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-saffron);
+  outline-offset: 2px;
+}
+
+/* Thin cinematic scrollbar for desktop panels. */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0b060c;
+}
+::-webkit-scrollbar-thumb {
+  background: #3a1c26;
+  border-radius: 8px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Real street map (Leaflet) — night-cinema skin.
+ * ------------------------------------------------------------------------- */
+.leaflet-container {
+  background: #0b060c;
+  font-family: inherit;
+  outline: none;
+}
+.leaflet-container:active {
+  outline: none;
+}
+/* Night-skinned OSM tiles: invert the light basemap into the app's dark cinema look.
+   Only the tile pane is filtered — pins, popups and controls keep their colors. */
+.leaflet-tile-pane {
+  filter: invert(1) hue-rotate(185deg) brightness(0.94) contrast(0.92) saturate(0.55);
+}
+
+/* dark zoom control */
+.leaflet-bar a,
+.leaflet-control-zoom a {
+  background: rgba(20, 10, 14, 0.92) !important;
+  color: #fff8ec !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(8px);
+}
+.leaflet-bar a:hover,
+.leaflet-control-zoom a:hover {
+  background: rgba(40, 20, 24, 0.95) !important;
+  color: #e8890c !important;
+}
+.leaflet-control-attribution {
+  background: rgba(11, 6, 12, 0.72) !important;
+  color: rgba(255, 248, 236, 0.45) !important;
+  font-size: 10px !important;
+  padding: 2px 6px;
+}
+.leaflet-control-attribution a {
+  color: rgba(232, 137, 12, 0.75) !important;
+}
+
+/* dark glass popups */
+.leaflet-popup-content-wrapper {
+  background: rgba(22, 11, 15, 0.96);
+  color: #fff8ec;
+  border: 1px solid rgba(232, 137, 12, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6), 0 0 24px rgba(232, 137, 12, 0.12);
+  backdrop-filter: blur(10px);
+}
+.leaflet-popup-content {
+  margin: 13px 15px;
+  line-height: 1.45;
+}
+.leaflet-popup-tip {
+  background: rgba(22, 11, 15, 0.96);
+  border: 1px solid rgba(232, 137, 12, 0.35);
+}
+.leaflet-popup-close-button {
+  color: rgba(255, 248, 236, 0.6) !important;
+  top: 8px !important;
+  right: 10px !important;
+}
+.ym-popup-kicker {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #e8890c;
+  margin: 0;
+}
+.ym-popup-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff8ec;
+  margin: 3px 0 0;
+}
+.ym-popup-story {
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(255, 248, 236, 0.68);
+  margin: 7px 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ym-popup-story span {
+  font-weight: 700;
+  color: rgba(255, 248, 236, 0.5);
+}
+
+/* numbered stop pins */
+.ym-pin-wrap {
+  background: none;
+  border: none;
+}
+.ym-pin {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  background: #0b060c;
+  border: 2.5px solid #e8890c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(232, 137, 12, 0.55), 0 4px 12px rgba(0, 0, 0, 0.6);
+  transition: transform 0.25s ease;
+}
+.ym-pin:hover {
+  transform: scale(1.12);
+}
+.ym-pin span {
+  color: #e8890c;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1;
+}
+.ym-pin-story {
+  border-color: #ffd9a0;
+  box-shadow: 0 0 20px rgba(255, 184, 77, 0.75), 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+.ym-pin-flame {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 11px;
+  height: 11px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 35%, #ffe9c4, #e8890c 70%);
+  border: 1.5px solid #0b060c;
+  box-shadow: 0 0 8px rgba(232, 137, 12, 0.9);
+}
+
+/* travelling e-rickshaw marker */
+.ym-rick-wrap {
+  background: none;
+  border: none;
+}
+.ym-rick {
+  filter: drop-shadow(0 0 10px rgba(232, 137, 12, 0.7));
+  animation: ym-bob 2.4s ease-in-out infinite;
+}
+@keyframes ym-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* travelled road glow */
+.ym-route-done {
+  filter: drop-shadow(0 0 7px rgba(255, 184, 77, 0.85));
+}
