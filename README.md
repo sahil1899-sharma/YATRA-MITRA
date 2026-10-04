@@ -5,8 +5,10 @@ fixed notified fares, verified Mitra drivers, a women-driver Yatra Sakhi cohort,
 a ropeway-feeder pilot, and a Jammu Tawi arrival kiosk.
 
 React 18 + Vite + TypeScript (strict) + Tailwind + React Router v6 + Zustand
-(persisted to localStorage) + Recharts + lucide-react + qrcode.react.
-No backend, no external APIs, no CDN assets — works offline after first load.
+(persisted to localStorage) + Recharts + lucide-react + qrcode.react + Leaflet.
+No backend. The circuit map loads OpenStreetMap tiles (needs internet);
+everything else works offline after first load, and the map falls back to an
+illustrated schematic when tiles are unreachable.
 
 ## How to run
 
