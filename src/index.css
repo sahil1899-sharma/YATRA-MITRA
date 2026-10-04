@@ -237,6 +237,28 @@ body {
   will-change: transform;
 }
 
+/* Light sweep across the wordmark. */
+@keyframes sheen-sweep {
+  to {
+    background-position: 200% center;
+  }
+}
+.sheen-text {
+  background: linear-gradient(
+    105deg,
+    #fff6e3 25%,
+    #e8890c 42%,
+    #ffe9bd 50%,
+    #e8890c 58%,
+    #fff6e3 75%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: sheen-sweep 9s linear infinite;
+}
+
 /* Success pop for confirmations (receipt, booking). */
 @keyframes pop-in {
   0% {
@@ -294,6 +316,7 @@ body {
   .bar-shimmer::after,
   .pulse-dot::after,
   .kenburns,
+  .sheen-text,
   .ym-rick {
     animation: none !important;
   }

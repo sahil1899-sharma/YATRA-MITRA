@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import { CarFront, ChevronRight, Compass, Landmark, MonitorSmartphone } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import CinematicScene from '../../components/CinematicScene';
+import EmberField from '../../components/EmberField';
 import FilmGrain from '../../components/FilmGrain';
 import TiltCard from '../../components/TiltCard';
-import Marquee from '../../components/Marquee';
 import CursorGlow from '../../components/CursorGlow';
 import OrnamentDivider from '../../components/Ornament';
 
@@ -52,10 +52,21 @@ function useDepthParallax() {
         ref.current.style.transform = `translate3d(${(x * dx).toFixed(1)}px, ${(y * dy).toFixed(1)}px, 0)`;
       }
     };
+    // The backdrop gets true 3D: it drifts like the rest, but also tips a few
+    // degrees toward the pointer inside the page perspective.
+    const placeScene = () => {
+      if (sceneRef.current) {
+        const rx = (-y * 2.4).toFixed(2);
+        const ry = (x * 3.2).toFixed(2);
+        sceneRef.current.style.transform =
+          `translate3d(${(x * -18).toFixed(1)}px, ${(y * -12).toFixed(1)}px, 0) ` +
+          `rotateX(${rx}deg) rotateY(${ry}deg)`;
+      }
+    };
     const loop = () => {
       x += (tx - x) * 0.055;
       y += (ty - y) * 0.055;
-      place(sceneRef, -18, -12);
+      placeScene();
       place(headRef, 14, 10);
       place(cardsRef, -26, -18);
       raf = requestAnimationFrame(loop);
@@ -75,20 +86,22 @@ export default function LauncherPage() {
   const { sceneRef, headRef, cardsRef } = useDepthParallax();
 
   return (
-    <main className="relative min-h-dvh overflow-hidden bg-night">
+    <main className="relative min-h-dvh overflow-hidden bg-night [perspective:1400px]">
       <StorageGuard />
       {/* living dusk backdrop, oversized so parallax never reveals edges */}
       <div ref={sceneRef} className="absolute -inset-8" aria-hidden="true">
         <CinematicScene mood="dusk" className="h-full w-full" />
       </div>
+      {/* drifting ember dust above the photograph */}
+      <EmberField />
       <div className="absolute inset-0 bg-gradient-to-b from-night/70 via-transparent to-night/85" aria-hidden="true" />
       <FilmGrain />
       <CursorGlow />
 
-      <div className="relative mx-auto flex min-h-dvh max-w-3xl flex-col px-5 pb-28 pt-14 md:pt-20">
+      <div className="relative mx-auto flex min-h-dvh max-w-3xl flex-col px-5 pb-12 pt-14 md:pt-20">
         <div ref={headRef}>
           <div className="rise" style={rise('0s')}>
-            <h1 className="text-ember mt-4 text-center font-display text-[3.6rem] font-bold leading-none text-cream md:text-7xl">
+            <h1 className="sheen-text text-ember mt-4 text-center font-display text-[3.6rem] font-bold leading-none md:text-7xl">
               Yatra Mitra
             </h1>
             <OrnamentDivider light className="mx-auto mt-8 w-56" />
@@ -128,19 +141,6 @@ export default function LauncherPage() {
           Fixed fares · Verified drivers · No bargaining
         </footer>
       </div>
-
-      {/* the promise, rolling like film credits */}
-      <Marquee
-        className="absolute inset-x-0 bottom-0 border-t border-white/10 bg-night/70 text-cream/80 backdrop-blur-md"
-        items={[
-          'No bargaining',
-          'No surprise stops',
-          'No commission shopping',
-          'Fixed fares',
-          'Verified drivers',
-          'If your driver breaks this promise, your ride is free',
-        ]}
-      />
     </main>
   );
 }
