@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { CarFront, ChevronRight, Compass, Landmark, MonitorSmartphone } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import CinematicScene from '../../components/CinematicScene';
+import SkyLife from '../../components/SkyLife';
 import EmberField from '../../components/EmberField';
 import FilmGrain from '../../components/FilmGrain';
 import TiltCard from '../../components/TiltCard';
@@ -91,6 +92,8 @@ export default function LauncherPage() {
       {/* living dusk backdrop, oversized so parallax never reveals edges */}
       <div ref={sceneRef} className="absolute -inset-8" aria-hidden="true">
         <CinematicScene mood="dusk" className="h-full w-full" />
+        {/* birds, stars and the ropeway cabin live inside the 3D world */}
+        <SkyLife />
       </div>
       {/* drifting ember dust above the photograph */}
       <EmberField />
