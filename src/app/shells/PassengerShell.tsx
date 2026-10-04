@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import PageTransition from '../../components/PageTransition';
 import { CircleHelp, Home, Phone, Ticket } from 'lucide-react';
 import ResponsiveShell from './ResponsiveShell';
 import type { TabItem } from './TabBar';
@@ -20,7 +20,7 @@ export default function PassengerShell() {
   return (
     <ResponsiveShell title="Yatra Mitra" tabs={tabs}>
       <StorageGuard />
-      <Outlet />
+      <PageTransition />
 
       <Modal open={helpOpen} onClose={() => setHelpOpen(false)} title="Need help?">
         <p className="text-sm text-cream/70">

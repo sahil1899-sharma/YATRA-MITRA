@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import PageTransition from '../../components/PageTransition';
 import { BookOpen, CalendarCheck, ChevronDown, User, Wallet, X } from 'lucide-react';
 import ResponsiveShell from './ResponsiveShell';
 import type { TabItem } from './TabBar';
@@ -154,7 +154,7 @@ export default function DriverShell() {
         </div>
       </div>
 
-      <Outlet />
+      <PageTransition />
       <SwitchViewPill />
       <SignInSheet open={sheetOpen} onClose={() => setSheetOpen(false)} />
     </ResponsiveShell>

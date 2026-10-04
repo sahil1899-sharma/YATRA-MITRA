@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import PageTransition from '../../components/PageTransition';
 import SwitchViewPill from './SwitchViewPill';
 import StorageGuard from '../../components/StorageGuard';
 import AppBackdrop from '../../components/AppBackdrop';
@@ -49,7 +50,7 @@ export default function KioskShell() {
         <p className="mt-1 text-base text-cream/60">Fixed fares. Verified drivers. No bargaining.</p>
       </header>
       <main className="relative mx-auto max-w-6xl px-8 py-8 text-lg">
-        <Outlet />
+        <PageTransition />
       </main>
       <div className="print:hidden">
         <SwitchViewPill />

@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import PageTransition from '../components/PageTransition';
 import SwitchViewPill from './shells/SwitchViewPill';
 import AppBackdrop from '../components/AppBackdrop';
 
@@ -9,7 +9,7 @@ export default function PublicPage() {
       <AppBackdrop />
       <div className="relative w-full max-w-md">
         <p className="mb-4 text-center font-display text-base font-bold text-cream">Yatra Mitra</p>
-        <Outlet />
+        <PageTransition />
       </div>
       <SwitchViewPill />
     </div>

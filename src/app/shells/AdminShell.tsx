@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import PageTransition from '../../components/PageTransition';
 import { BarChart3, RotateCcw, ShieldCheck } from 'lucide-react';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
@@ -75,7 +76,7 @@ export default function AdminShell() {
           </Button>
         </header>
         <main className="flex-1 px-4 py-6 md:px-8">
-          <Outlet />
+          <PageTransition />
         </main>
       </div>
 
