@@ -223,6 +223,20 @@ body {
     0 8px 28px rgba(232, 137, 12, 0.18);
 }
 
+/* Slow cinematic drift for photographic backdrops. */
+@keyframes kenburns {
+  from {
+    transform: scale(1.03) translate(0.6%, 0);
+  }
+  to {
+    transform: scale(1.14) translate(-1.6%, -1%);
+  }
+}
+.kenburns {
+  animation: kenburns 28s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
 /* Success pop for confirmations (receipt, booking). */
 @keyframes pop-in {
   0% {
@@ -279,6 +293,7 @@ body {
   .btn-shine::after,
   .bar-shimmer::after,
   .pulse-dot::after,
+  .kenburns,
   .ym-rick {
     animation: none !important;
   }

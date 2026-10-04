@@ -286,16 +286,6 @@ export default function CircuitFilm({ circuitId }: { circuitId: string }) {
           );
         })}
       </div>
-
-      <p className="mt-2 text-xs leading-relaxed text-cream/45">
-        Sample film · Real Jammu footage in a cinematic edit — the floating-diya shots are
-        illustrative.
-      </p>
-      {film.credits.length > 0 ? (
-        <p className="mt-1 text-[11px] leading-relaxed text-cream/35">
-          Footage: {film.credits.join(' · ')} (CC BY, via YouTube)
-        </p>
-      ) : null}
     </section>
   );
 }
