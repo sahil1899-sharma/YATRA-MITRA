@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import SwitchViewPill from './SwitchViewPill';
 import StorageGuard from '../../components/StorageGuard';
+import AppBackdrop from '../../components/AppBackdrop';
 import { KIOSK_IDLE_TIMEOUT_MS } from '../../lib/kiosk';
 
 export default function KioskShell() {
@@ -40,13 +41,14 @@ export default function KioskShell() {
   }, [navigate]);
 
   return (
-    <div className="bg-jaali-dark min-h-dvh bg-night print:bg-white">
+    <div className="bg-jaali-dark relative min-h-dvh bg-night/60 print:bg-white">
+      <AppBackdrop />
       <StorageGuard />
-      <header className="border-b border-white/10 bg-night-soft/80 px-8 py-5 backdrop-blur-md print:hidden">
+      <header className="relative border-b border-white/10 bg-night-soft/80 px-8 py-5 backdrop-blur-md print:hidden">
         <h1 className="font-display text-2xl font-bold text-cream">Yatra Mitra Kendra — Jammu Tawi</h1>
         <p className="mt-1 text-base text-cream/60">Fixed fares. Verified drivers. No bargaining.</p>
       </header>
-      <main className="mx-auto max-w-6xl px-8 py-8 text-lg">
+      <main className="relative mx-auto max-w-6xl px-8 py-8 text-lg">
         <Outlet />
       </main>
       <div className="print:hidden">

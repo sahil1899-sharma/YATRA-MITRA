@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 import Modal from '../../components/Modal';
 import Toast from '../../components/Toast';
 import StorageGuard from '../../components/StorageGuard';
+import AppBackdrop from '../../components/AppBackdrop';
 import SwitchViewPill from './SwitchViewPill';
 import { useAppStore } from '../../store/useAppStore';
 
@@ -38,9 +39,10 @@ export default function AdminShell() {
   };
 
   return (
-    <div className="bg-jaali-dark flex min-h-dvh bg-night">
+    <div className="bg-jaali-dark relative flex min-h-dvh bg-night/60">
+      <AppBackdrop />
       <StorageGuard />
-      <aside className="hidden w-64 shrink-0 flex-col border-r border-white/10 bg-night-soft/80 p-4 backdrop-blur-md md:flex print:hidden">
+      <aside className="relative hidden w-64 shrink-0 flex-col border-r border-white/10 bg-night-soft/80 p-4 backdrop-blur-md md:flex print:hidden">
         <p className="px-2 py-3 font-display text-base font-bold text-cream">Yatra Mitra</p>
         <nav className="flex flex-col gap-1" aria-label="Admin">
           <NavLink to="/a" end className={sidebarLinkClass}>
@@ -54,7 +56,7 @@ export default function AdminShell() {
         </nav>
       </aside>
 
-      <div className="flex min-h-dvh flex-1 flex-col">
+      <div className="relative flex min-h-dvh flex-1 flex-col">
         <header className="flex items-center justify-between gap-4 border-b border-white/10 bg-night-soft/80 px-4 py-3 backdrop-blur-md md:px-8 print:hidden">
           <div>
             <h1 className="font-display text-lg font-bold text-cream">Jammu Tourism Pulse</h1>
