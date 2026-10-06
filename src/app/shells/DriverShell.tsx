@@ -120,7 +120,12 @@ export default function DriverShell() {
   }, [activeDriverMitraId]);
 
   return (
-    <ResponsiveShell title="Mitra Saarthi" tabs={TABS}>
+    <ResponsiveShell
+      title="Mitra Saarthi"
+      tabs={TABS}
+      videoSrc="/video/portal-driver.mp4"
+      posterSrc="/video/portal-driver-poster.jpg"
+    >
       <StorageGuard />
       {/* driver chip */}
       <div className="border-b border-white/10 bg-night-soft/60 px-4 py-2 md:px-2">

@@ -18,7 +18,12 @@ export default function PassengerShell() {
   const tabs: TabItem[] = [...TABS, { label: 'Help', icon: CircleHelp, onClick: () => setHelpOpen(true) }];
 
   return (
-    <ResponsiveShell title="Yatra Mitra" tabs={tabs}>
+    <ResponsiveShell
+      title="Yatra Mitra"
+      tabs={tabs}
+      videoSrc="/video/portal-passenger.mp4"
+      posterSrc="/video/portal-passenger-poster.jpg"
+    >
       <StorageGuard />
       <PageTransition />
 

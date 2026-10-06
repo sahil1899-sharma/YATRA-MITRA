@@ -43,7 +43,10 @@ export default function KioskShell() {
 
   return (
     <div className="bg-jaali-dark relative min-h-dvh bg-night/60 print:bg-white">
-      <AppBackdrop />
+      <AppBackdrop
+        videoSrc="/video/portal-ambient.mp4"
+        posterSrc="/video/portal-ambient-poster.jpg"
+      />
       <StorageGuard />
       <header className="relative border-b border-white/10 bg-night-soft/80 px-8 py-5 backdrop-blur-md print:hidden">
         <h1 className="font-display text-2xl font-bold text-cream">Yatra Mitra Kendra — Jammu Tawi</h1>

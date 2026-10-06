@@ -41,7 +41,10 @@ export default function AdminShell() {
 
   return (
     <div className="bg-jaali-dark relative flex min-h-dvh bg-night/60">
-      <AppBackdrop />
+      <AppBackdrop
+        videoSrc="/video/portal-ambient.mp4"
+        posterSrc="/video/portal-ambient-poster.jpg"
+      />
       <StorageGuard />
       <aside className="relative hidden w-64 shrink-0 flex-col border-r border-white/10 bg-night-soft/80 p-4 backdrop-blur-md md:flex print:hidden">
         <p className="px-2 py-3 font-display text-base font-bold text-cream">Yatra Mitra</p>
