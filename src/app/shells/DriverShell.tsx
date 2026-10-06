@@ -3,7 +3,6 @@ import PageTransition from '../../components/PageTransition';
 import { BookOpen, CalendarCheck, ChevronDown, User, Wallet, X } from 'lucide-react';
 import ResponsiveShell from './ResponsiveShell';
 import type { TabItem } from './TabBar';
-import SwitchViewPill from './SwitchViewPill';
 import StorageGuard from '../../components/StorageGuard';
 import { useAppStore } from '../../store/useAppStore';
 
@@ -160,7 +159,6 @@ export default function DriverShell() {
       </div>
 
       <PageTransition />
-      <SwitchViewPill />
       <SignInSheet open={sheetOpen} onClose={() => setSheetOpen(false)} />
     </ResponsiveShell>
   );

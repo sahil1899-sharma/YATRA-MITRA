@@ -68,7 +68,7 @@ export default function ReceiptPage() {
   });
 
   return (
-    <div className="bg-jaali-dark px-4 py-6 md:px-2">
+    <div className="px-4 py-6 md:px-2">
       <div className="rise mx-auto flex items-center gap-3" style={{ '--d': '0s' } as CSSProperties}>
         <span className="pop-in flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-verified/15 shadow-[0_0_34px_rgba(30,142,90,0.5)]" aria-hidden="true">
           <CheckCircle2 size={34} className="text-verified" />

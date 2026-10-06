@@ -57,7 +57,7 @@ export default function DriverEarningsPage() {
   const weekData = last7Days().map((day, i) => ({ day, earnings: WEEKLY_SIMULATED[i] }));
 
   return (
-    <div className="bg-jaali-dark px-4 pb-10 pt-6 md:px-2">
+    <div className="px-4 pb-10 pt-6 md:px-2">
       <h1 className="font-display text-2xl font-bold text-cream">Earnings</h1>
 
       {/* toggle */}

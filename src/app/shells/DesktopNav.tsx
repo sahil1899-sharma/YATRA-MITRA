@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import type { TabItem } from './TabBar';
 
 function desktopTabClass(active: boolean): string {
@@ -15,7 +15,9 @@ export default function DesktopNav({ title, tabs }: { title: string; tabs: TabIt
   return (
     <header className="sticky top-0 z-30 border-b border-white/10 bg-night/80 backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-3">
-        <p className="font-display text-[24px] font-semibold tracking-tight text-cream">{title}</p>
+        <Link to="/" className="font-display text-[24px] font-semibold tracking-tight text-cream transition-colors hover:text-saffron" aria-label="Yatra Mitra home">
+          {title}
+        </Link>
         <nav className="flex items-center gap-1.5" aria-label="Primary">
           {tabs.map((item) => {
             const Icon = item.icon;

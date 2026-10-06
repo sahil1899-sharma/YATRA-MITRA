@@ -14,7 +14,7 @@ export default function MyTripsPage() {
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
   return (
-    <div className="bg-jaali-dark px-4 py-6 md:px-2">
+    <div className="px-4 py-6 md:px-2">
       <SectionTitle title="My trips" subtitle="Your bookings as a guest" />
 
       {mine.length === 0 ? (

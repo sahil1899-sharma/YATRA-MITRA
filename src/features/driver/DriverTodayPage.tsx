@@ -51,7 +51,7 @@ export default function DriverTodayPage() {
     .sort((a, b) => a.slot.localeCompare(b.slot));
 
   return (
-    <div className="bg-jaali-dark px-4 pb-10 pt-6 md:px-2">
+    <div className="px-4 pb-10 pt-6 md:px-2">
       {/* header */}
       <div className="flex items-center justify-between gap-3">
         <div>

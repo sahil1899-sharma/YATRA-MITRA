@@ -26,7 +26,7 @@ export default function DriverProfilePage() {
   const verifyUrl = `${window.location.origin}/verify/${driver.mitraId}`;
 
   return (
-    <div className="bg-jaali-dark px-4 pb-10 pt-6 md:px-2">
+    <div className="px-4 pb-10 pt-6 md:px-2">
       <Card>
         <div className="flex items-center gap-4">
           <span

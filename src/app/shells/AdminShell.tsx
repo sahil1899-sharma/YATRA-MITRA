@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import PageTransition from '../../components/PageTransition';
 import { BarChart3, RotateCcw, ShieldCheck } from 'lucide-react';
 import Button from '../../components/Button';
@@ -7,7 +7,6 @@ import Modal from '../../components/Modal';
 import Toast from '../../components/Toast';
 import StorageGuard from '../../components/StorageGuard';
 import AppBackdrop from '../../components/AppBackdrop';
-import SwitchViewPill from './SwitchViewPill';
 import { useAppStore } from '../../store/useAppStore';
 
 function sidebarLinkClass({ isActive }: { isActive: boolean }): string {
@@ -40,14 +39,16 @@ export default function AdminShell() {
   };
 
   return (
-    <div className="bg-jaali-dark relative flex min-h-dvh bg-night/60">
+    <div className="relative flex min-h-dvh bg-night/60">
       <AppBackdrop
         videoSrc="/video/portal-ambient.mp4"
         posterSrc="/video/portal-ambient-poster.jpg"
       />
       <StorageGuard />
       <aside className="relative hidden w-64 shrink-0 flex-col border-r border-white/10 bg-night-soft/80 p-4 backdrop-blur-md md:flex print:hidden">
-        <p className="px-2 py-3 font-display text-base font-bold text-cream">Yatra Mitra</p>
+        <Link to="/" className="px-2 py-3 font-display text-base font-bold text-cream transition-colors hover:text-saffron" aria-label="Yatra Mitra home">
+          Yatra Mitra
+        </Link>
         <nav className="flex flex-col gap-1" aria-label="Admin">
           <NavLink to="/a" end className={sidebarLinkClass}>
             <BarChart3 size={18} aria-hidden="true" />
@@ -98,9 +99,6 @@ export default function AdminShell() {
       </Modal>
 
       {toast ? <Toast message={toast} onClose={() => setToast(null)} /> : null}
-      <div className="print:hidden">
-        <SwitchViewPill />
-      </div>
     </div>
   );
 }

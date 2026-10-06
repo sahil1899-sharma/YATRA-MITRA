@@ -121,7 +121,7 @@ export default function DriverTripPage() {
   const finished = trip.status === 'completed' || trip.status === 'aborted';
 
   return (
-    <div className="bg-jaali-dark px-4 pb-10 pt-6 md:px-2">
+    <div className="px-4 pb-10 pt-6 md:px-2">
       <Link
         to="/d"
         className="text-sm font-semibold text-cream/60 hover:text-saffron"

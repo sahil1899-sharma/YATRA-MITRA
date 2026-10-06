@@ -5,7 +5,7 @@ import AppBackdrop from '../components/AppBackdrop';
 
 export default function NotFoundPage() {
   return (
-    <div className="bg-jaali-dark relative flex min-h-dvh items-center justify-center bg-night/60 p-4">
+    <div className="relative flex min-h-dvh items-center justify-center bg-night/60 p-4">
       <AppBackdrop />
       <Card className="relative w-full max-w-sm text-center">
         <h1 className="font-display text-xl font-bold text-cream">Page not found</h1>

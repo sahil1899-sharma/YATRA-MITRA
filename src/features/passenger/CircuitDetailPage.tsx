@@ -139,7 +139,7 @@ export default function CircuitDetailPage() {
   const mood: SceneMood = circuit.id === 'C6' ? 'dusk' : 'dawn';
 
   return (
-    <div className="bg-jaali-dark">
+    <div className="">
       <div className="relative h-56 overflow-hidden md:h-80 md:rounded-[24px]">
         <CinematicScene mood={mood} className="absolute inset-0 h-full w-full" />
         <div className="absolute inset-0 bg-gradient-to-t from-night/90 via-night/15 to-transparent" />

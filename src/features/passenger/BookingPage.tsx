@@ -119,7 +119,7 @@ export default function BookingPage() {
   ];
 
   return (
-    <div className="bg-jaali-dark">
+    <div className="">
       <div className="px-4 pb-32 pt-4 md:px-2 md:pt-6">
         <Link
           to={`/p/circuit/${circuit.id}`}

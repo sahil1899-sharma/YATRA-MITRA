@@ -62,7 +62,7 @@ export default function DriverLearnPage() {
   const storyStops = SEED_STOPS.filter((s) => s.hasStory);
 
   return (
-    <div className="bg-jaali-dark px-4 pb-10 pt-6 md:px-2">
+    <div className="px-4 pb-10 pt-6 md:px-2">
       <h1 className="font-display text-2xl font-bold text-cream">Learn</h1>
       <p className="mt-1 text-sm text-cream/60">
         Scripts, etiquette and quick-reference cards for Mitra drivers.

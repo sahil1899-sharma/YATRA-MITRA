@@ -3,7 +3,6 @@ import PageTransition from '../../components/PageTransition';
 import { CircleHelp, Home, Phone, Ticket } from 'lucide-react';
 import ResponsiveShell from './ResponsiveShell';
 import type { TabItem } from './TabBar';
-import SwitchViewPill from './SwitchViewPill';
 import StorageGuard from '../../components/StorageGuard';
 import Modal from '../../components/Modal';
 import { EMERGENCY, HELPLINE } from '../../data/constants';
@@ -49,7 +48,6 @@ export default function PassengerShell() {
         </div>
       </Modal>
 
-      <SwitchViewPill />
     </ResponsiveShell>
   );
 }

@@ -42,7 +42,7 @@ export default function DriverCardPage() {
   const verifyUrl = `${window.location.origin}/verify/${driver.mitraId}`;
 
   return (
-    <div className="bg-jaali-dark px-4 py-6 md:px-2">
+    <div className="px-4 py-6 md:px-2">
       <Link
         to="/p"
         className="inline-flex items-center gap-1.5 text-sm font-semibold text-cream/60 hover:text-saffron"

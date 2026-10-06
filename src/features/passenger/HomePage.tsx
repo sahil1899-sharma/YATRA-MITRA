@@ -36,7 +36,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="bg-jaali-dark">
+    <div className="">
       <CursorGlow />
 
       {/* cinematic chapter band */}

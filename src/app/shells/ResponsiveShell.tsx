@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import TabBar from './TabBar';
 import type { TabItem } from './TabBar';
 import DesktopNav from './DesktopNav';
@@ -23,9 +24,11 @@ export default function ResponsiveShell({
     <>
       <div className="relative min-h-dvh bg-night/60 md:hidden">
         <AppBackdrop videoSrc={videoSrc} posterSrc={posterSrc} />
-        <div className="bg-jaali-dark relative mx-auto flex min-h-dvh w-full max-w-[430px] flex-col">
+        <div className="relative mx-auto flex min-h-dvh w-full max-w-[430px] flex-col">
           <header className="border-b border-white/10 bg-night-soft/85 px-4 py-3 backdrop-blur-md">
-            <p className="font-display text-[19px] font-bold text-cream">{title}</p>
+            <Link to="/" className="font-display text-[19px] font-bold text-cream" aria-label="Yatra Mitra home">
+              {title}
+            </Link>
           </header>
           <div className="flex min-h-0 flex-1 flex-col">
             <main className="flex flex-1 flex-col">{children}</main>
@@ -34,7 +37,7 @@ export default function ResponsiveShell({
         </div>
       </div>
 
-      <div className="bg-jaali-dark relative hidden min-h-dvh bg-night/60 md:block">
+      <div className="relative hidden min-h-dvh bg-night/60 md:block">
         <AppBackdrop videoSrc={videoSrc} posterSrc={posterSrc} />
         <DesktopNav title={title} tabs={tabs} />
         <div className="relative mx-auto w-full max-w-6xl px-6 py-8">{children}</div>

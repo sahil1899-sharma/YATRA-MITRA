@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageTransition from '../../components/PageTransition';
-import SwitchViewPill from './SwitchViewPill';
 import StorageGuard from '../../components/StorageGuard';
 import AppBackdrop from '../../components/AppBackdrop';
 import { KIOSK_IDLE_TIMEOUT_MS } from '../../lib/kiosk';
@@ -42,7 +41,7 @@ export default function KioskShell() {
   }, [navigate]);
 
   return (
-    <div className="bg-jaali-dark relative min-h-dvh bg-night/60 print:bg-white">
+    <div className="relative min-h-dvh bg-night/60 print:bg-white">
       <AppBackdrop
         videoSrc="/video/portal-ambient.mp4"
         posterSrc="/video/portal-ambient-poster.jpg"
@@ -55,9 +54,6 @@ export default function KioskShell() {
       <main className="relative mx-auto max-w-6xl px-8 py-8 text-lg">
         <PageTransition />
       </main>
-      <div className="print:hidden">
-        <SwitchViewPill />
-      </div>
     </div>
   );
 }

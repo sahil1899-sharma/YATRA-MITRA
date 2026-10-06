@@ -168,7 +168,7 @@ export default function RideScreen() {
     activeStory != null ? (audio.lang === 'hi' ? activeStory.storyHi : activeStory.storyEn) : null;
 
   return (
-    <div className="bg-jaali-dark px-4 pb-28 pt-6 md:px-2">
+    <div className="px-4 pb-28 pt-6 md:px-2">
       {/* a) header */}
       <Card className="card-lift">
         <div className="flex items-start justify-between gap-3">
