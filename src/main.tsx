@@ -1,6 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/manrope';
 import './index.css';
 import { router } from './app/router';
 

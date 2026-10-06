@@ -23,7 +23,7 @@ export default {
       },
       fontFamily: {
         sans: [
-          'Inter',
+          'Manrope',
           'system-ui',
           '-apple-system',
           '"Segoe UI"',
@@ -31,15 +31,12 @@ export default {
           '"Noto Sans Devanagari"',
           'sans-serif',
         ],
-        // Editorial serif for headings and story moments. System fonts only —
-        // nothing is loaded from the internet.
+        // Fraunces: editorial serif with real character — optical sizing on.
         display: [
+          'Fraunces',
           'Georgia',
           '"Palatino Linotype"',
-          '"Book Antiqua"',
-          'Palatino',
           '"Noto Serif Devanagari"',
-          '"Noto Serif"',
           'serif',
         ],
       },

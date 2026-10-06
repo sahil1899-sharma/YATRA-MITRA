@@ -10,18 +10,9 @@ export interface TabItem {
 }
 
 function tabClass(active: boolean): string {
-  return `relative flex min-h-[60px] flex-col items-center justify-center gap-1 text-[11px] font-semibold transition ${
+  return `relative flex min-h-[62px] flex-col items-center justify-center gap-1 text-[11px] font-bold tracking-wide transition-colors duration-200 ${
     active ? 'text-saffron' : 'text-cream/45 hover:text-cream/80'
   }`;
-}
-
-function ActiveBar() {
-  return (
-    <span
-      aria-hidden="true"
-      className="absolute inset-x-8 top-0 h-[3px] rounded-b-full bg-saffron"
-    />
-  );
 }
 
 export default function TabBar({ items }: { items: TabItem[] }) {
@@ -30,24 +21,29 @@ export default function TabBar({ items }: { items: TabItem[] }) {
       <div className="grid" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
         {items.map((item) => {
           const Icon = item.icon;
-          const inner = (
-            <>
-              <Icon size={20} aria-hidden="true" />
-              <span>{item.label}</span>
-            </>
-          );
           return item.to ? (
             <NavLink key={item.label} to={item.to} end={item.end} className={({ isActive }) => tabClass(isActive)}>
               {({ isActive }) => (
                 <>
-                  {isActive ? <ActiveBar /> : null}
-                  {inner}
+                  <span
+                    className={`flex h-8 w-16 items-center justify-center rounded-full transition-all duration-300 ${
+                      isActive
+                        ? 'bg-saffron/15 text-saffron shadow-[0_0_20px_rgba(232,137,12,0.35)]'
+                        : 'text-current'
+                    }`}
+                  >
+                    <Icon size={20} aria-hidden="true" />
+                  </span>
+                  <span>{item.label}</span>
                 </>
               )}
             </NavLink>
           ) : (
             <button key={item.label} type="button" onClick={item.onClick} className={tabClass(false)} aria-label={item.label}>
-              {inner}
+              <span className="flex h-8 w-16 items-center justify-center rounded-full">
+                <Icon size={20} aria-hidden="true" />
+              </span>
+              <span>{item.label}</span>
             </button>
           );
         })}

@@ -4,13 +4,16 @@ import type { CSSProperties, RefObject } from 'react';
 import { Link } from 'react-router-dom';
 import { CarFront, ChevronRight, Compass, Landmark, MonitorSmartphone } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import CinematicScene from '../../components/CinematicScene';
-import SkyLife from '../../components/SkyLife';
 import EmberField from '../../components/EmberField';
 import FilmGrain from '../../components/FilmGrain';
 import TiltCard from '../../components/TiltCard';
 import CursorGlow from '../../components/CursorGlow';
 import OrnamentDivider from '../../components/Ornament';
+
+// Video backgrounds respect reduced-motion: still poster frame instead.
+const prefersReducedMotion =
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 interface Entry {
   to: string;
@@ -89,11 +92,23 @@ export default function LauncherPage() {
   return (
     <main className="relative min-h-dvh overflow-hidden bg-night [perspective:1400px]">
       <StorageGuard />
-      {/* living dusk backdrop, oversized so parallax never reveals edges */}
+      {/* living dusk backdrop — real motion, oversized so parallax never reveals edges */}
       <div ref={sceneRef} className="absolute -inset-8" aria-hidden="true">
-        <CinematicScene mood="dusk" className="h-full w-full" />
-        {/* birds, stars and the ropeway cabin live inside the 3D world */}
-        <SkyLife />
+        {prefersReducedMotion ? (
+          <img src="/scenes/dusk.jpg" alt="" draggable={false} className="h-full w-full object-cover" />
+        ) : (
+          <video
+            className="h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/scenes/dusk.jpg"
+          >
+            <source src="/video/launcher-bg.mp4" type="video/mp4" />
+          </video>
+        )}
       </div>
       {/* drifting ember dust above the photograph */}
       <EmberField />
@@ -104,7 +119,8 @@ export default function LauncherPage() {
       <div className="relative mx-auto flex min-h-dvh max-w-3xl flex-col px-5 pb-12 pt-14 md:pt-20">
         <div ref={headRef}>
           <div className="rise" style={rise('0s')}>
-            <h1 className="sheen-text text-ember mt-4 text-center font-display text-[3.6rem] font-bold leading-none md:text-7xl">
+            <p className="eyebrow mb-5 text-center">Jammu · Heritage circuits</p>
+            <h1 className="sheen-text text-ember mt-4 text-center font-display text-[3.8rem] font-semibold leading-none tracking-tight md:text-8xl">
               Yatra Mitra
             </h1>
             <OrnamentDivider light className="mx-auto mt-8 w-56" />
@@ -113,25 +129,33 @@ export default function LauncherPage() {
 
         <div ref={cardsRef} className="mt-8">
           <div className="rise grid grid-cols-1 gap-4 sm:grid-cols-2" style={rise('0.3s')}>
-            {ENTRIES.map((e) => {
+            {ENTRIES.map((e, i) => {
               const Icon = e.icon;
               return (
-                <TiltCard key={e.to} className="h-full" max={7}>
+                <TiltCard key={e.to} className="h-full" max={6}>
                   <Link
                     to={e.to}
-                    className="glass group flex h-full items-center gap-4 rounded-card p-4 transition-colors duration-300 hover:border-saffron/60"
+                    className="glass group relative flex h-full items-center gap-5 overflow-hidden rounded-card p-5 transition-all duration-300 hover:-translate-y-1 hover:border-saffron/50 hover:shadow-[0_24px_60px_rgba(232,137,12,0.16)]"
                   >
-                    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-card bg-gradient-to-br from-saffron to-[#c96f06] text-ink shadow-glow transition group-hover:scale-105">
-                      <Icon size={26} aria-hidden="true" />
+                    <span
+                      aria-hidden="true"
+                      className="font-display pointer-events-none absolute -right-1 top-1 select-none text-[64px] font-semibold leading-none text-cream/[0.06] transition-colors duration-500 group-hover:text-saffron/10"
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f2a63b] to-[#c96f06] text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_8px_20px_rgba(232,137,12,0.4)] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                      <Icon size={22} aria-hidden="true" />
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block font-display text-xl font-bold text-cream">{e.title}</span>
-                      <span className="mt-0.5 block truncate text-sm text-cream/60">{e.desc}</span>
+                      <span className="block font-display text-[22px] font-semibold tracking-tight text-cream">
+                        {e.title}
+                      </span>
+                      <span className="mt-1 block truncate text-sm text-cream/55">{e.desc}</span>
                     </span>
                     <ChevronRight
                       size={20}
                       aria-hidden="true"
-                      className="shrink-0 text-cream/40 transition group-hover:translate-x-1 group-hover:text-saffron"
+                      className="shrink-0 text-cream/30 transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-saffron"
                     />
                   </Link>
                 </TiltCard>

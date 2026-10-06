@@ -2,9 +2,9 @@ import { NavLink } from 'react-router-dom';
 import type { TabItem } from './TabBar';
 
 function desktopTabClass(active: boolean): string {
-  return `flex min-h-[44px] items-center gap-2 rounded-full px-4 text-sm font-semibold transition ${
+  return `flex min-h-[44px] items-center gap-2 rounded-full px-4 text-sm font-bold transition-all duration-200 ${
     active
-      ? 'bg-saffron text-ink shadow-glow'
+      ? 'bg-gradient-to-b from-[#f2a63b] to-saffron text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_20px_rgba(232,137,12,0.35)]'
       : 'text-cream/60 hover:bg-white/10 hover:text-cream'
   }`;
 }
@@ -15,7 +15,7 @@ export default function DesktopNav({ title, tabs }: { title: string; tabs: TabIt
   return (
     <header className="sticky top-0 z-30 border-b border-white/10 bg-night/80 backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-3">
-        <p className="font-display text-[22px] font-bold text-cream">{title}</p>
+        <p className="font-display text-[24px] font-semibold tracking-tight text-cream">{title}</p>
         <nav className="flex items-center gap-1.5" aria-label="Primary">
           {tabs.map((item) => {
             const Icon = item.icon;
